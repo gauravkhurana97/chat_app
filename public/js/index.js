@@ -36,11 +36,10 @@ socket.on("newMessage",function(message){
     console.log("Got it",message)
 })
 
-socket.emit("createMessageEvent",{
-    from:"gauravKhurana",
-    text:"Helloo"
-
-})
+// socket.emit("createMessageEvent",{
+//     from:"gauravKhurana",
+//     text:"Helloo"
+// })
 
 //disconnect events=which lets u do something when server and client drops
 socket.on("disconnect",function(){

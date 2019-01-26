@@ -5,6 +5,8 @@ const socketIO = require("socket.io");
 const http = require("http");
 const PORT = process.env.PORT||3000;
 const app = express();
+const {generate_message} = require("./utils/message");
+
 
 const server = http.createServer(app);
 
@@ -38,9 +40,17 @@ io.on("connection",(socket)=>{
     //our custom events listeners are happen down below
 
     //on=>listen the event
-    socket.on("createEmail",(newEmail)=>{
-        console.log("createEmail",newEmail);
-    })
+    
+    socket.emit("newMessage",generate_message("Admin","Welcome to the chat app"));
+
+    
+    socket.broadcast.emit("newMessage",generate_message("Admin","New User Joined"));
+    
+    // socket.on("createEmail",(newEmail)=>{
+    //     console.log("createEmail",newEmail);
+    // })
+
+
 
     //socket =>this refers to individual socket as opposed to all of users connected to server
     //web sockets=they are persistent technology
@@ -73,12 +83,14 @@ io.on("connection",(socket)=>{
 
     socket.on("createMessageEvent",function(message){
         console.log("New message from Client ",message)
-        io.emit("newMessage",{
-            from:message.from,
-            text:message.text,
-            createdAt:new Date().getTime()
-        })
+io.emit("newMessage",generate_message(message.from,message.text))
 
+        //this event is emit for everybody except this socket
+        // socket.broadcast.emit("newMessage",{
+        //         from:message.from,
+        //         text:message.text,
+        //         createdAt:new Date().getTime()
+        //     })
     })
 
  
