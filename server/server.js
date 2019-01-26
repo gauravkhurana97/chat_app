@@ -60,16 +60,28 @@ io.on("connection",(socket)=>{
     // });
 
     //Emitting New Message
-    socket.emit("newMessage",{
-      from:"gaurav KHurana",
-      text:"Helloooo",
-      createdAt:"1234"  
-    })
+    // socket.emit("newMessage",{
+    //   from:"gaurav KHurana",
+    //   text:"Helloooo",
+    //   createdAt:"1234"  
+    // })
 
     //listening createMessageEvent
+    
+    //socket.emit->//emits the  event single connection
+    //io.emit->//emits the event to all connection
+
     socket.on("createMessageEvent",function(message){
         console.log("New message from Client ",message)
+        io.emit("newMessage",{
+            from:message.from,
+            text:message.text,
+            createdAt:new Date().getTime()
+        })
+
     })
+
+ 
 
     socket.on("disconnect",()=>{ 
         console.log("User was disconnected")

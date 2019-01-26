@@ -39,6 +39,7 @@ socket.on("newMessage",function(message){
 socket.emit("createMessageEvent",{
     from:"gauravKhurana",
     text:"Helloo"
+
 })
 
 //disconnect events=which lets u do something when server and client drops
