@@ -11,6 +11,9 @@ const server = http.createServer(app);
 //configure the server to also use socketIO
 //we are pass the server that we have to use with our web sockets
 var io = socketIO(server);
+//without this we dont get access to frontend socket library to take care for new user
+
+
 //when we integrate  socket io we accept 2 things 
 //we accept web socket connection 
 //and js library
@@ -26,7 +29,19 @@ app.use(express.static(publicPath));
 //greet the user when they make connection
 
 
+
+//io.on is used for connection event
+//we dont attacch any event other than this
+
 io.on("connection",(socket)=>{
+
+    //our custom events listeners are happen down below
+
+    //on=>listen the event
+    socket.on("createEmail",(newEmail)=>{
+        console.log("createEmail",newEmail);
+    })
+
     //socket =>this refers to individual socket as opposed to all of users connected to server
     //web sockets=they are persistent technology
     //meaning that client and server they both keep communicationn shell open
@@ -34,7 +49,25 @@ io.on("connection",(socket)=>{
     //when i close browser server cant force to open the connection
     console.log("New User connected")
 
-    socket.on("disconnect",()=>{
+
+
+
+    //if u wnt to set custom data 
+    socket.emit("newEmail",{
+        from:"gaurav khurana",
+        text:"Hey what is going on",
+        createdAt:123
+    });
+
+
+    // socket.emit("newMessage",{
+    //   from:"gaurav KHurana",
+    //   text:"Helloooo",
+    //   createdAt:"1234"  
+    // })
+
+
+    socket.on("disconnect",()=>{ 
         console.log("User was disconnected")
     })
 
