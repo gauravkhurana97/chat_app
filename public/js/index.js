@@ -16,10 +16,10 @@ socket.on("connect",function(){
 //in 2nd argument -> we send custom data  
 
 
-socket.emit("createEmail",{
-    to:"gaurav khurana",
-    text:"Hey. this is from gaurav"
-})
+// socket.emit("createEmail",{
+//     to:"gaurav khurana",
+//     text:"Hey. this is from gaurav"
+// })
 
  
 
@@ -27,10 +27,19 @@ socket.emit("createEmail",{
 //it is not the realistic example 
 //in general client will make send the form with some custom data
 
-socket.on("newEmail",function(email){
-    console.log("New email",email);
+// socket.on("newEmail",function(email){
+//     console.log("New email",email);
+// })
+
+
+socket.on("newMessage",function(message){
+    console.log("Got it",message)
 })
 
+socket.emit("createMessageEvent",{
+    from:"gauravKhurana",
+    text:"Helloo"
+})
 
 //disconnect events=which lets u do something when server and client drops
 socket.on("disconnect",function(){

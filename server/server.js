@@ -53,24 +53,27 @@ io.on("connection",(socket)=>{
 
 
     //if u wnt to set custom data 
-    socket.emit("newEmail",{
-        from:"gaurav khurana",
-        text:"Hey what is going on",
-        createdAt:123
-    });
+    // socket.emit("newEmail",{
+    //     from:"gaurav khurana",
+    //     text:"Hey what is going on",
+    //     createdAt:123
+    // });
 
+    //Emitting New Message
+    socket.emit("newMessage",{
+      from:"gaurav KHurana",
+      text:"Helloooo",
+      createdAt:"1234"  
+    })
 
-    // socket.emit("newMessage",{
-    //   from:"gaurav KHurana",
-    //   text:"Helloooo",
-    //   createdAt:"1234"  
-    // })
-
+    //listening createMessageEvent
+    socket.on("createMessageEvent",function(message){
+        console.log("New message from Client ",message)
+    })
 
     socket.on("disconnect",()=>{ 
         console.log("User was disconnected")
     })
-
 })
 //it listen for new connection 
 //meaning that when client connects to server
