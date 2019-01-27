@@ -80,7 +80,7 @@ beforeEach(()=>{
     })
 
     it("should not find a user",()=>{
-        var user = users.getUser(5);
+        var user = users.getUser(5 );
         expect(user).toEqual([]);
         expect(user.length).toBe(0);
     })  
