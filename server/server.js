@@ -6,7 +6,7 @@ const http = require("http");
 const PORT = process.env.PORT||3000;
 const app = express();
 const {generate_message,generateLocation_message} = require("./utils/message");
-
+const {isRealString} =  require("./utils/validation")
 
 const server = http.createServer(app);
 
@@ -25,6 +25,15 @@ io.on("connection",(socket)=>{
     
     socket.broadcast.emit("newMessage",generate_message("Admin","New User Joined"));
     
+
+    socket.on("join",(params,callback)=>{
+        if(isRealString(params.name) && isRealString(params.room)){
+            callback();
+        }else{
+            callback("Name and Roomname are required");   
+        }
+    })
+
     console.log("New User connected")
 
     socket.on("createMessageEvent",(message,callback)=>{
