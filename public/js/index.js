@@ -106,7 +106,6 @@ jQuery("#message_form").on("submit",function(e){
     e.preventDefault();
 
     socket.emit("createMessageEvent",{
-        from:"User",
         text:message_text.val()
     },function(){
         message_text.val("");

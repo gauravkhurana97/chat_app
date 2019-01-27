@@ -47,16 +47,30 @@ io.on("connection",(socket)=>{
     console.log("New User connected")
 
     socket.on("createMessageEvent",(message,callback)=>{
-        console.log("New message from Client ",message)
-  io.emit("newMessage",generate_message(message.from,message.text))
+        // console.log("New message from Client ",message)
+        var user = users.getUser(socket.id)[0];
+        // console.log(user);
+        // console.log(socket.id);
+
+        console.log(user);
+
+        if(user && isRealString(message.text)){
+
+             console.log("Hello");
+            io.to(user.room).emit("newMessage",generate_message(user.name,message.text))
+        }
+
         callback("This is form the server");
     })
 
     socket.on("create_location_message",(coords)=>{
-        io.emit("newLocationMessage",generateLocation_message("Admin",coords.latitude,coords.longitude));
+        var user = users.getUser(socket.id)[0];
+        // console.log(user)
+        if(user){
+       io.to(user.room).emit("newLocationMessage",generateLocation_message(user.name,coords.latitude,coords.longitude));
+        }
     })
     
- 
 
     socket.on("disconnect",()=>{ 
         
