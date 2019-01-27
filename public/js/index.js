@@ -1,3 +1,4 @@
+ 
 var socket = io();
 
 socket.on("connect",function(){
@@ -5,9 +6,6 @@ socket.on("connect",function(){
 });
 
 
-// socket.on("newMessage",function(message){
-//     console.log("Got it",message)
-//})
 
 socket.on("newMessage",function(message){
     console.log("Got it",message)
@@ -25,14 +23,11 @@ socket.on("newLocationMessage",function(message){
     li.append(a);
     jQuery("#messages").append(li);
 })
+socket.on("disconnect",function(){
+    console.log("Disconnected from server");
+})
 
-// //Acknowledgment  
-// socket.emit("createMessageEvent",{
-//     from:"frank",
-//     text:"Hii" 
-// },function(msg){
-//     console.log(msg);
-// })
+
 
 var message_text=jQuery('[name=message]');
 socket.on("disconnect",function(){

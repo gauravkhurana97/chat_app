@@ -8,9 +8,11 @@
         expect(res.from).toEqual("gaurav");
         expect(res.text).toEqual("lokesh");
         expect(res.createdAt).toBeA("number");
-   })
+
+      })
   })
 
+  
   describe("generateLocation_message",()=>{
     it("should generate correct message object",()=>{
 
@@ -18,7 +20,7 @@
       var lattitude=15;
       var longitude=19;
 
-      var url="https://www.google.com/maps/q15,19"
+      var url="https://www.google.com/maps?q=15,19"
       var message=generateLocation_message(from,
         lattitude,longitude)
 
@@ -27,7 +29,3 @@
 
  })
 })
-
-
-
-
